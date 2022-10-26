@@ -1,111 +1,69 @@
-//Нажатие добовление задачи по Enter
-document.getElementById("add").addEventListener("keyup", function (e) {
-  if (e.keyCode === 13) {
-    document.getElementById("add").click();
+const createTodoInput = document.getElementById("new-todo-input");
+const todoList = document.getElementById("todo-list");
+const searchInput = document.getElementById("search-todo-item-input");
+
+const state = {
+  tasks: [],
+};
+
+const isTaskExistInTodoList = (text) => {
+  for (let index = 0; index < todoList.children.length; index++) {
+    const currentTodoItem = todoList.children.item(index);
+
+    if (currentTodoItem.innerText === text) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+const createTask = (value) => {
+  const isTaskExist = isTaskExistInTodoList(value);
+
+  if (!isTaskExist) {
+    state.tasks = [...state.tasks, { id: Date.now(), value }];
+
+    tasksRender(state.tasks);
+  }
+};
+
+const getTaskElements = (tasks) => {
+  const getTaskElement = ({ id, value }) => `
+    <li id="${id}">
+      <p>${value}</p>
+      <img id="trash_${id}" src="./images/trash-icon.svg" alt="delete" />
+    </li>`;
+
+  return tasks.map((task) => getTaskElement(task)).join("");
+};
+
+const tasksRender = (tasks) => {
+  todoList.innerHTML = getTaskElements(tasks);
+
+  tasks.forEach(({ id }) => {
+    document.getElementById(`trash_${id}`).addEventListener("click", () => {
+      const filteredStateTasks = state.tasks.filter((task) => task.id !== id);
+      const filteredTasks = tasks.filter((task) => task.id !== id);
+
+      state.tasks = filteredStateTasks;
+
+      tasksRender(filteredTasks);
+    });
+  });
+};
+
+createTodoInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" && event.currentTarget.value) {
+    createTask(event.currentTarget.value);
+
+    event.currentTarget.value = "";
   }
 });
 
-document.getElementById("add").onclick = function () {};
+searchInput.addEventListener("keyup", (event) => {
+  const searchText = event.currentTarget.value;
+  const filteredTasks = state.tasks.filter(({ value }) => value.includes(searchText));
 
-const dom = {
-  new: document.getElementById("new"),
-  add: document.getElementById("add"),
-  task: document.getElementById("task"),
-};
-
-const tasks = [];
-
-// отслеживаем клик по кнопке добавить задачу
-dom.add.onclick = () => {
-  const newTaskText = dom.new.value;
-  if (newTaskText && isNotHavetask(newTaskText, tasks)) {
-    addTask(newTaskText, tasks);
-    dom.new.value = "";
-    tasksRender(tasks);
-  }
-};
-
-// Функция добавления задач
-function addTask(text, list) {
-  const timestamp = Date.now();
-  const task = {
-    id: timestamp,
-    text,
-    isComplete: false,
-  };
-  list.push(task);
-}
-
-//Проверка существовани задачи в массиве задач
-function isNotHavetask(text, list) {
-  let isNotHave = true;
-
-  list.forEach((task) => {
-    if (task.text === text) {
-      alert("Task already exists");
-      isNotHave = false;
-    }
-  });
-
-  return isNotHave;
-}
-
-// функция вывода списка задача
-function tasksRender(list) {
-  let htmlList = "";
-
-  list.forEach((task) => {
-    const taskHtml = `
-        <div id="${task.id}" class="todo_list">
-        <div class="todo_task">
-          <div class="todo_task-title">${task.text}</div>
-          <div class="todo_task-del"></div>
-        </div>
-        `;
-
-    htmlList = htmlList + taskHtml;
-  });
-  dom.task.innerHTML = htmlList;
-}
-
-dom.task.onclick = (event) => {
-  const target = event.target;
-  const isDeleteEl = target.classList.contains("todo_task-del");
-
-  if (isDeleteEl) {
-    const task = target.parentElement.parentElement;
-    const taskId = task.getAttribute("id");
-    deleteTask(taskId, tasks);
-    tasksRender(tasks);
-  }
-};
-
-//Функция удаления
-function deleteTask(id, list) {
-  list.forEach((task, idx) => {
-    if (task.id == id) {
-      list.splice(idx, 1);
-    }
-  });
-}
-
-//Поиск в списке задач
-window.onload = () => {
-  let input = document.querySelector("#input");
-  input.oninput = function () {
-    let value = this.value.trim();
-    let list = document.querySelectorAll(".todo_task");
-
-    if (value != "") {
-      list.forEach((elem) => {
-        if (elem.innerText.search(value) == -1) {
-          elem.classList.add("hide");
-        }
-      });
-    } else {
-      list.forEach((elem) => {
-        elem.classList.remove("hide");
-      });
-    }
-  };
-};
+  tasksRender(filteredTasks);
+});

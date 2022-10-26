@@ -1,0 +1,42 @@
+.todo-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-list li {
+  position: relative;
+  cursor: move;
+  padding: 10px 20px;
+  background-color: #363e5b;
+  color: #ffffff;
+  transition: 0.4s ease;
+}
+
+.todo-list li:hover {
+  background-color: #2a3049;
+}
+
+.todo-list li img {
+  position: absolute;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  right: 4px;
+  top: 50%;
+  padding: 6px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+/* .todo-list li::after {
+  content: "";
+  position: absolute;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  background: url(../images/trash-icon.svg) no-repeat center;
+} */
