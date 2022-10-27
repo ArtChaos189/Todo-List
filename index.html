@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./styles/null.css" />
+    <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="stylesheet" href="./styles/todo-section.css" />
+    <link rel="stylesheet" href="./styles/todo-list.css" />
     <title>Todo List</title>
+    <script defer src="./script.js"></script>
   </head>
   <body>
-    <div class="todo">
-      <div class="todo_content">
-        <h1 class="todo_title">Todo List</h1>
-        <div class="todo_new">
-          <div id="add" class="todo_task-add">
-            <input id="new" type="text" placeholder="Add new todo..." />
-          </div>
-        </div>
-      </div>
-      <div id="task" class="todo_list"></div>
-      <div class="pop">
-        <input id="input" type="text" placeholder="search..." />
-        <div class="search"></div>
-      </div>
-    </div>
-    <script src="script.js"></script>
+    <main class="todo-main-container">
+      <h1 class="todo-title">Todo List</h1>
+      <section class="todo-list-section">
+        <input id="new-todo-input" type="text" placeholder="Add new todo..." />
+        <ul id="todo-list" class="todo-list"></ul>
+        <label class="search-input" for="search-todo-item-input">
+          <input id="search-todo-item-input" type="text" placeholder="search..." />
+          <img src="./images/trash-icon.svg" alt="search..." />
+        </label>
+      </section>
+    </main>
   </body>
 </html>

@@ -1,0 +1,31 @@
+.todo-list-section {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  max-width: 480px;
+  width: 100%;
+}
+
+.todo-list-section input {
+  color: #ffffff;
+  background-color: #252c3f;
+  border: 5px solid #2f4b75;
+  border-radius: 6px;
+  padding: 10px 20px;
+  width: 100%;
+}
+
+.todo-list-section .search-input {
+  display: flex;
+  position: relative;
+}
+
+.todo-list-section .search-input img {
+  position: absolute;
+  width: 50px;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  padding: 12px;
+}

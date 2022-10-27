@@ -1,0 +1,14 @@
+.todo-main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  row-gap: 80px;
+  padding: 40px;
+}
+
+.todo-main-container .todo-title {
+  color: #ffffff;
+}
